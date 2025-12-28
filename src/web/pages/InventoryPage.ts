@@ -21,7 +21,6 @@ export class InventoryPage {
     }
 
     async addItemToCart(productName: string) {
-        // Semantic locator strategy for specific product add button
         await this.page.locator('.inventory_item')
             .filter({ hasText: productName })
             .getByRole('button', { name: 'Add to cart' })
