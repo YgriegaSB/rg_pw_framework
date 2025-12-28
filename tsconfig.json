@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "es2016",
+        "lib": [
+            "DOM",
+            "DOM.Iterable",
+            "ESNext"
+        ],
+        "module": "commonjs",
+        "strict": true,
+        "baseUrl": ".",
+        "esModuleInterop": true,
+        "paths": {
+            "@src/*": [
+                "src/*"
+            ],
+            "@api/*": [
+                "src/api/*"
+            ]
+        }
+    }
+}
