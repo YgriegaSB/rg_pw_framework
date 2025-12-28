@@ -1,5 +1,4 @@
 import { test, expect } from '@src/fixtures/baseTest';
-import { config } from '@api/config';
 import { UserService } from '@api/services/UserService';
 import { PetService } from '@api/services/PetService';
 import { StoreService } from '@api/services/StoreService';
@@ -9,10 +8,13 @@ test.describe('Petstore API Flow', () => {
     let petService: PetService;
     let storeService: StoreService;
 
-    test.beforeEach(async ({ request }) => {
-        userService = new UserService(request, config.baseURL);
-        petService = new PetService(request, config.baseURL);
-        storeService = new StoreService(request, config.baseURL);
+    test.beforeEach(async ({ request, baseURL }) => {
+        if (!baseURL) {
+            throw new Error('baseURL is required');
+        }
+        userService = new UserService(request, baseURL);
+        petService = new PetService(request, baseURL);
+        storeService = new StoreService(request, baseURL);
     });
 
     test('Complete Petstore User Flow', async ({ logger }) => {
