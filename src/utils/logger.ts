@@ -8,7 +8,10 @@ if (!fs.existsSync(logDir)) {
 }
 
 const consoleFormat = winston.format.printf(({ level, message, timestamp, projectName }) => {
-    return `${timestamp} [${projectName}] ${level}: ${message}`;
+    const projectTag = projectName ? `[${projectName}]` : '[Global]';
+    const paddedProject = projectTag.padEnd(12);
+
+    return `${timestamp} ${paddedProject} ${level}: ${message}`;
 });
 
 export const createTestLogger = (testName: string, projectName: string) => {
