@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:api": "npx playwright test --project=api",
+    "test:ui": "npx playwright test --project=chromium --project=firefox",
+    "test:all": "npx playwright test"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -12,5 +16,8 @@
     "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.3",
     "dotenv": "^17.2.3"
+  },
+  "dependencies": {
+    "winston": "^3.19.0"
   }
 }
