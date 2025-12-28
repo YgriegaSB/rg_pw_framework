@@ -7,12 +7,11 @@ if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir);
 }
 
-const consoleFormat = winston.format.printf(({ level, message, timestamp, context }) => {
-    const contextMsg = context ? ` [${context}]` : '';
-    return `${timestamp} ${level.toUpperCase()}:${contextMsg} ${message}`;
+const consoleFormat = winston.format.printf(({ level, message, timestamp, projectName }) => {
+    return `${timestamp} [${projectName}] ${level}: ${message}`;
 });
 
-export const createTestLogger = (testName: string) => {
+export const createTestLogger = (testName: string, projectName: string) => {
     const sanitizedName = testName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
     const logFilename = path.join(logDir, `${sanitizedName}.log`);
 
@@ -24,12 +23,14 @@ export const createTestLogger = (testName: string) => {
         level: process.env.LOG_LEVEL || 'info',
         format: winston.format.combine(
             winston.format.timestamp({ format: 'HH:mm:ss' }),
-            winston.format.errors({ stack: true }),
-            winston.format.json()
+            winston.format.errors({ stack: true })
         ),
-        defaultMeta: { testName },
+        defaultMeta: { testName, projectName },
         transports: [
-            new winston.transports.File({ filename: logFilename }),
+            new winston.transports.File({
+                filename: logFilename,
+                format: winston.format.json()
+            }),
 
             new winston.transports.Console({
                 format: winston.format.combine(

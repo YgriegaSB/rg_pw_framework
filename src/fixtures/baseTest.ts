@@ -10,7 +10,7 @@ type TestFixtures = {
 
 export const test = baseTest.extend<TestFixtures>({
     logger: async ({ }, use, testInfo) => {
-        const logger = createTestLogger(testInfo.title);
+        const logger = createTestLogger(testInfo.title, testInfo.project.name);
 
         logger.info(`INICIO DEL TEST: ${testInfo.title}`);
 
