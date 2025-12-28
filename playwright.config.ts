@@ -29,7 +29,7 @@ export default defineConfig({
       name: 'api',
       testDir: './tests/api',
       use: {
-        baseURL: process.env.API_BASE_URL || 'https://petstore.swagger.io/v2',
+        baseURL: process.env.API_BASE_URL,
       },
     },
     {
