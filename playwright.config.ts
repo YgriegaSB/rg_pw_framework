@@ -15,13 +15,13 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Global Setup and Teardown */
-  globalSetup: './src/utils/globalSetup.ts',
-  globalTeardown: './src/utils/globalTeardown.ts',
+  globalSetup: './src/config/globalSetup.ts',
+  globalTeardown: './src/config/globalTeardown.ts',
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['list'],
-    ['./src/utils/CustomReporter.ts'],
+    ['./src/reporters/CustomReporter.ts'],
     ['html', { open: 'never' }],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

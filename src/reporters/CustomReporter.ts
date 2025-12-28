@@ -1,12 +1,12 @@
 import type { Reporter, TestCase, TestResult, FullResult, FullConfig, Suite } from '@playwright/test/reporter';
-import { createTestLogger } from './logger';
+import { createTestLogger } from '@utils/logger';
 
 class CustomReporter implements Reporter {
     private testResults: { title: string; status: string; duration: number; project: string }[] = [];
     private logger = createTestLogger('CustomReporter', 'Global');
 
     onBegin(config: FullConfig, suite: Suite) {
-        this.logger.info(`Starting execution of ${suite.allTests().length} tests across ${config.projects.length} projects.`);
+        this.logger.info(`Starting execution of ${suite.allTests().length} tests.`);
     }
 
     onTestEnd(test: TestCase, result: TestResult) {
