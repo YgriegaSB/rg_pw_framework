@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@src/fixtures/baseTest';
 import { config } from '@api/config';
 import { UserService } from '@api/services/UserService';
 import { PetService } from '@api/services/PetService';
@@ -15,50 +15,62 @@ test.describe('Petstore API Flow', () => {
         storeService = new StoreService(request, config.baseURL);
     });
 
-    test('Complete Petstore User Flow', async () => {
-        // 1. Login
-        console.log('Step 1: Logging in...');
-        const loginResponse = await userService.login('testuser', 'testpass');
-        expect(loginResponse.ok(), 'Login should be successful').toBeTruthy();
-        const loginBody = await loginResponse.json();
-        expect(loginBody.code).toBe(200);
+    test('Complete Petstore User Flow', async ({ logger }) => {
+        logger.info('Step 1: Logging in...');
+        await test.step('Login', async () => {
+            const loginResponse = await userService.login('testuser', 'testpass');
+            if (!loginResponse.ok()) {
+                logger.error(`Login failed with status: ${loginResponse.status()}`);
+            }
+            expect(loginResponse.ok(), 'Login should be successful').toBeTruthy();
+            const loginBody = await loginResponse.json();
+            logger.debug(`Login response: ${JSON.stringify(loginBody)}`);
+            expect(loginBody.code).toBe(200);
+        });
 
-        // 2. List available pets
-        console.log('Step 2: Listing available pets...');
-        const petsResponse = await petService.findByStatus('available');
-        expect(petsResponse.ok(), 'List pets should be successful').toBeTruthy();
-        const pets = await petsResponse.json();
-        expect(Array.isArray(pets)).toBeTruthy();
-        expect(pets.length).toBeGreaterThan(0);
+        logger.info('Step 2: Listing available pets...');
+        let pets: any[];
+        await test.step('List Pets', async () => {
+            const petsResponse = await petService.findByStatus('available');
+            expect(petsResponse.ok(), 'List pets should be successful').toBeTruthy();
+            pets = await petsResponse.json();
+            expect(Array.isArray(pets)).toBeTruthy();
+            expect(pets.length).toBeGreaterThan(0);
+            logger.info(`Found ${pets.length} available pets`);
+        });
 
-        // Pick a random pet from the list to test with
-        const randomPet = pets[Math.floor(Math.random() * pets.length)];
-        console.log(`Selected Pet ID: ${randomPet.id}`);
+        const randomPet = pets![Math.floor(Math.random() * pets!.length)];
+        logger.info(`Selected Pet ID: ${randomPet.id}`);
 
-        // 3. Consult details of a specific pet
-        console.log('Step 3: Getting pet details...');
-        const petDetailsResponse = await petService.getById(randomPet.id);
-        expect(petDetailsResponse.ok(), `Get pet details for ID ${randomPet.id} should be successful`).toBeTruthy();
-        const petDetails = await petDetailsResponse.json();
-        expect(petDetails.id).toBe(randomPet.id);
+        logger.info('Step 3: Getting pet details...');
+        await test.step('Get Pet Details', async () => {
+            const petDetailsResponse = await petService.getById(randomPet.id);
+            expect(petDetailsResponse.ok(), `Get pet details for ID ${randomPet.id} should be successful`).toBeTruthy();
+            const petDetails = await petDetailsResponse.json();
+            expect(petDetails.id).toBe(randomPet.id);
+            logger.debug(`Pet details: ${JSON.stringify(petDetails)}`);
+        });
 
-        // 4. Create an order for the pet
-        console.log('Step 4: Placing order...');
-        const orderPayload = {
-            id: Math.floor(Math.random() * 1000), // Random Order ID
-            petId: randomPet.id,
-            quantity: 1,
-            shipDate: new Date().toISOString(),
-            status: 'placed',
-            complete: true
-        };
+        logger.info('Step 4: Placing order...');
+        await test.step('Place Order', async () => {
+            const orderPayload = {
+                id: Math.floor(Math.random() * 1000),
+                petId: randomPet.id,
+                quantity: 1,
+                shipDate: new Date().toISOString(),
+                status: 'placed',
+                complete: true
+            };
 
-        const orderResponse = await storeService.placeOrder(orderPayload);
-        expect(orderResponse.ok(), 'Order placement should be successful').toBeTruthy();
-        const orderBody = await orderResponse.json();
-        expect(orderBody.petId).toBe(randomPet.id);
-        expect(orderBody.status).toBe('placed');
+            logger.debug(`Order payload: ${JSON.stringify(orderPayload)}`);
+            const orderResponse = await storeService.placeOrder(orderPayload);
+            expect(orderResponse.ok(), 'Order placement should be successful').toBeTruthy();
+            const orderBody = await orderResponse.json();
+            expect(orderBody.petId).toBe(randomPet.id);
+            expect(orderBody.status).toBe('placed');
+            logger.info(`Order placed successfully. Order ID: ${orderBody.id}`);
+        });
 
-        console.log('Flow completed successfully.');
+        logger.info('Flow completed successfully.');
     });
 });

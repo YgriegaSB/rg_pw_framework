@@ -12,5 +12,8 @@
     "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.3",
     "dotenv": "^17.2.3"
+  },
+  "dependencies": {
+    "winston": "^3.19.0"
   }
 }
