@@ -19,6 +19,12 @@
             ],
             "@utils/*": [
                 "src/utils/*"
+            ],
+            "@components/*": [
+                "src/web/components/*"
+            ],
+            "@pages/*": [
+                "src/web/pages/*"
             ]
         }
     }

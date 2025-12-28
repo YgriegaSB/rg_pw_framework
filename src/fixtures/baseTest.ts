@@ -4,8 +4,11 @@ import winston from 'winston';
 import path from 'path';
 import fs from 'fs';
 
+import { InventoryPage } from '@pages/InventoryPage';
+
 type TestFixtures = {
     logger: winston.Logger;
+    inventoryPage: InventoryPage;
 };
 
 export const test = baseTest.extend<TestFixtures>({
@@ -29,6 +32,9 @@ export const test = baseTest.extend<TestFixtures>({
                 contentType: 'application/json'
             });
         }
+    },
+    inventoryPage: async ({ page }, use) => {
+        await use(new InventoryPage(page));
     },
 });
 

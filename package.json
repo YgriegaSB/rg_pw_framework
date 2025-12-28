@@ -6,7 +6,8 @@
   "scripts": {
     "test:api": "npx playwright test --project=api",
     "test:ui": "npx playwright test --project=chromium --project=firefox",
-    "test:all": "npx playwright test"
+    "test:all": "npx playwright test",
+    "shopping:ui": "npx playwright test tests/web/shopping.spec.ts --project=chromium --ui"
   },
   "keywords": [],
   "author": "",
