@@ -1,0 +1,50 @@
+name: API Tests
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'tests/api/**'
+      - 'src/api/**'
+      - 'src/config/**'
+      - 'src/utils/**'
+      - 'src/fixtures/**'
+      - 'package.json'
+      - 'package-lock.json'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'tests/api/**'
+      - 'src/api/**'
+      - 'src/config/**'
+      - 'src/utils/**'
+      - 'src/fixtures/**'
+      - 'package.json'
+      - 'package-lock.json'
+  workflow_dispatch:
+
+jobs:
+  test-api:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+      env:
+        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+    - name: Run API Tests
+      run: npm run test:api
+      env:
+        API_BASE_URL: ${{ secrets.API_BASE_URL }}
+        LOG_LEVEL: info 
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report-api
+        path: playwright-report/
+        retention-days: 15
