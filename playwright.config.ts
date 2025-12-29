@@ -20,7 +20,7 @@ export default defineConfig({
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-    ['list'],
+    //['list', { printSteps: true }],
     ['./src/reporters/CustomReporter.ts'],
     ['html', { open: 'never' }],
   ],
