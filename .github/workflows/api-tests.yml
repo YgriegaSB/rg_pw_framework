@@ -9,6 +9,7 @@ on:
       - 'src/config/**'
       - 'src/utils/**'
       - 'src/fixtures/**'
+      - '!src/fixtures/images/**'
       - 'package.json'
       - 'package-lock.json'
   pull_request:
@@ -19,6 +20,7 @@ on:
       - 'src/config/**'
       - 'src/utils/**'
       - 'src/fixtures/**'
+      - '!src/fixtures/images/**'
       - 'package.json'
       - 'package-lock.json'
   workflow_dispatch:
