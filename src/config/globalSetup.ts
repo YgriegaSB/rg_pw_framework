@@ -1,7 +1,7 @@
 import { DatabaseConnection } from './dbConn';
 
 async function globalSetup() {
-    console.log('\n--- GLOBAL SETUP START ---');
+    console.log('--- GLOBAL SETUP START ---');
     const db = DatabaseConnection.getInstance();
     // try {
     //     await db.connect();
