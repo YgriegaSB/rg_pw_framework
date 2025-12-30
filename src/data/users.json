@@ -1,0 +1,19 @@
+{
+    "users": {
+        "validUser": {
+            "username": "usuario1@seleccionqa.cl",
+            "password": "Usuario2026.01",
+            "company": " QA / AFC Richmond "
+        },
+        "lockedUser": {
+            "username": "locked_out_user",
+            "password": "secret_sauce",
+            "company": " QA / AFC Richmond "
+        },
+        "invalidUser": {
+            "username": "invalid_user",
+            "password": "invalid_password",
+            "company": " QA / AFC Richmond "
+        }
+    }
+}
