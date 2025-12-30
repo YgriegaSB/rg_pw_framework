@@ -1,6 +1,6 @@
 import { type Locator, type Page } from '@playwright/test';
 
-export class NewSimpleBill {
+export class NewSimpleBillPage {
     readonly page: Page;
 
     // Header Elements

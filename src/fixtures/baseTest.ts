@@ -4,7 +4,7 @@ import { SelectCompanyPage } from '@src/web/pages/SelectCompanyPage';
 import { Sidebar } from '@src/web/components/Sidebar';
 import { BillsPage } from '@src/web/pages/BillsPage';
 import { NewBillModal } from '@src/web/components/NewBillModal';
-import { NewSimpleBill } from '@src/web/pages/NewSimpleBill';
+import { NewSimpleBillPage } from '@src/web/pages/NewSimpleBillPage';
 import { SnackBar } from '@src/web/components/SnackBar';
 
 type Pages = {
@@ -13,7 +13,7 @@ type Pages = {
     sidebar: Sidebar;
     billsPage: BillsPage;
     newBillModal: NewBillModal;
-    newSimpleBill: NewSimpleBill;
+    newSimpleBill: NewSimpleBillPage;
     snackBar: SnackBar;
 };
 
@@ -34,7 +34,7 @@ export const test = baseTest.extend<Pages>({
         await use(new NewBillModal(page));
     },
     newSimpleBill: async ({ page }, use) => {
-        await use(new NewSimpleBill(page));
+        await use(new NewSimpleBillPage(page));
     },
     snackBar: async ({ page }, use) => {
         await use(new SnackBar(page));
