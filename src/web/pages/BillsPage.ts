@@ -15,6 +15,7 @@ export class BillsPage {
     readonly updateBillsButton: Locator;
 
     readonly gridColumns: Locator;
+    readonly buttonStopScanit: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -30,6 +31,7 @@ export class BillsPage {
         this.buttonFilter = page.locator('#filterOrigin');
         this.updateBillsButton = page.locator('//div[contains(@class, "pointer") and contains(@class, "br-100")]');
         this.gridColumns = page.locator('//div[@class="gridItem head mg-24-t"]');
+        this.buttonStopScanit = page.locator("//button[normalize-space()='Detener Scanit']");
     }
 
 
@@ -141,5 +143,19 @@ export class BillsPage {
     async deleteBillByName(name: string) {
         await this.openRowMenuByName(name);
         await this.selectMenuOption('Eliminar gasto');
+    }
+
+    // -- Scanit Process Actions --
+    async stopScanitProcess(index: number = 0) {
+        await this.buttonStopScanit.nth(index).click();
+    }
+
+    async stopAllScanitProcesses() {
+        let count = await this.buttonStopScanit.count();
+        while (count > 0) {
+            await this.buttonStopScanit.first().click();
+            await this.page.waitForTimeout(300);
+            count = await this.buttonStopScanit.count();
+        }
     }
 }
