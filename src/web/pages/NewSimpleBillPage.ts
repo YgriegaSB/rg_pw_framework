@@ -4,6 +4,7 @@ export class NewSimpleBillPage {
     readonly page: Page;
 
     // Header Elements
+    readonly principalModule: Locator;
     readonly currentModule: Locator;
     readonly buttonSave: Locator;
 
@@ -33,6 +34,7 @@ export class NewSimpleBillPage {
         this.page = page;
 
         // Header
+        this.principalModule = page.locator("//div[@class='top-menu']/descendant::div[text()='Gastos']");
         this.currentModule = page.locator("//div[contains(@class, 'nav current') and contains(., 'Nuevo gasto')]");
         this.buttonSave = page.locator("//btn-component[@id='employee-save-expense']//button");
 
@@ -61,6 +63,10 @@ export class NewSimpleBillPage {
     }
 
     // --- Actions ---
+
+    async clickPrincipalModule() {
+        await this.principalModule.click();
+    }
 
     async getFormTitle(): Promise<string> {
         return await this.formTitle.innerText();
