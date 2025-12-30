@@ -1,4 +1,4 @@
-import type { Reporter, TestCase, TestResult, FullResult, FullConfig, Suite } from '@playwright/test/reporter';
+import type { Reporter, TestCase, TestResult, FullResult, FullConfig, Suite, TestStep } from '@playwright/test/reporter';
 import { createTestLogger } from '@utils/logger';
 
 const colors = {
@@ -7,7 +7,8 @@ const colors = {
     red: "\x1b[31m",
     yellow: "\x1b[33m",
     cyan: "\x1b[36m",
-    bold: "\x1b[1m"
+    bold: "\x1b[1m",
+    gray: "\x1b[90m"
 };
 
 class CustomReporter implements Reporter {
@@ -21,6 +22,35 @@ class CustomReporter implements Reporter {
     onTestBegin(test: TestCase, result: TestResult) {
         const projectName = test.parent.project()?.name || 'Global';
         this.logger.info(`Starting test: ${test.title}`, { projectName });
+    }
+
+    onStepBegin(test: TestCase, result: TestResult, step: TestStep) {
+        if (step.category === 'test.step') {
+            const projectName = test.parent.project()?.name || 'Global';
+            this.logger.info(`${colors.gray}  → Starting step: ${step.title}${colors.reset}`, { projectName });
+        }
+    }
+
+    onStepEnd(test: TestCase, result: TestResult, step: TestStep) {
+        if (step.category === 'test.step') {
+            const projectName = test.parent.project()?.name || 'Global';
+            const duration = step.duration;
+            const statusIcon = step.error ? `${colors.red}FAILED${colors.reset}` : `${colors.green}PASSED${colors.reset}`;
+
+            this.logger.info(
+                `${colors.gray}  ✓ Finished step: ${step.title} - ${statusIcon} (${duration}ms)${colors.reset}`,
+                { projectName }
+            );
+
+            if (step.error) {
+                if (step.error.stack) {
+                    const indentedStack = step.error.stack.split('\n').map(line => `      ${line}`).join('\n');
+                    this.logger.error(`${colors.red}${indentedStack}${colors.reset}`, { projectName });
+                } else {
+                    this.logger.error(`${colors.red}    Error: ${step.error.message}${colors.reset}`, { projectName });
+                }
+            }
+        }
     }
 
     onTestEnd(test: TestCase, result: TestResult) {
@@ -54,9 +84,6 @@ class CustomReporter implements Reporter {
     async onEnd(result: FullResult) {
         this.logger.info(`${colors.bold}Finished the run: ${result.status.toUpperCase()}${colors.reset}`);
 
-        this.logger.info(`-----------------------------------`);
-        this.logger.info(`       EXECUTION SUMMARY           `);
-        this.logger.info(`-----------------------------------`);
         this.logger.info(`Total Tests: ${this.testResults.length}`);
 
         const passed = this.testResults.filter(r => r.status === 'passed').length;
