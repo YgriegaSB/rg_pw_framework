@@ -21,7 +21,7 @@ export class BillsPage {
         this.page = page;
 
         this.currentModule = page.locator('div.nav.current');
-        this.buttonNewBill = page.getByRole('button', { name: '+Crear gasto' });
+        this.buttonNewBill = page.locator('//button/span[text()="Crear gasto"]');
         this.buttonOptions = page.locator('#optionsButton');
         this.buttonOptionsOptionExportBills = page.getByText('Exportar gastos');
         this.buttonOptionsOptionDeleteDrafts = page.getByText('Eliminar borradores');

@@ -41,4 +41,5 @@ test.describe('Bills management', () => {
             await billsPage.openRowMenuByName(targetName);
         });
     });
+
 });
