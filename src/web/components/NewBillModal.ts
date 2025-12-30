@@ -10,6 +10,7 @@ export class NewBillModal {
     readonly tabDistance: Locator;
 
     readonly dropdownPolicy: Locator;
+    readonly dropdownPolicySimple: Locator;
     readonly buttonCancel: Locator;
     readonly buttonContinue: Locator;
     readonly inputFile: Locator;
@@ -23,6 +24,7 @@ export class NewBillModal {
         this.tabMultiple = page.locator("//div[@role='tab' and @aria-label='multiple-tab']");
         this.tabDistance = page.locator("//div[@role='tab' and @aria-label='distance-tab']");
         this.dropdownPolicy = page.locator('#scanit-policy-select');
+        this.dropdownPolicySimple = page.locator('#simple-policy-select');
         this.buttonCancel = page.locator("//button/span[text()='Cancelar']");
         this.buttonContinue = page.locator("//button/span[text()='Continuar']");
         this.inputFile = page.locator("//app-drag-and-drop//input[@type='file']");
@@ -35,6 +37,12 @@ export class NewBillModal {
 
     async selectPolicy(index: number = 0) {
         await this.dropdownPolicy.click();
+        const option = this.page.locator(`(//ng-dropdown-panel//div[contains(@class, 'ng-option')])[${index + 1}]`);
+        await option.click();
+    }
+
+    async selectSimplePolicy(index: number = 0) {
+        await this.dropdownPolicySimple.click();
         const option = this.page.locator(`(//ng-dropdown-panel//div[contains(@class, 'ng-option')])[${index + 1}]`);
         await option.click();
     }

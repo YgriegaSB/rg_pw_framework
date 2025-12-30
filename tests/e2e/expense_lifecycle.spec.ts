@@ -1,9 +1,4 @@
 import { test, expect } from '@src/fixtures/baseTest';
-import { SignInPage } from '@src/web/pages/SignInPage';
-import { SelectCompanyPage } from '@src/web/pages/SelectCompanyPage';
-import { Sidebar } from '@src/web/components/Sidebar';
-import { BillsPage } from '@src/web/pages/BillsPage';
-import { NewBillModal } from '@src/web/components/NewBillModal';
 import * as data from '@src/data/users.json';
 import * as path from 'path';
 
@@ -11,12 +6,7 @@ test.describe('E2E: Expense Lifecycle', () => {
 
     const user = data.users.validUser;
 
-    test('User can upload a receipt via Scanit and see it in the list', async ({ page }) => {
-        const signInPage = new SignInPage(page);
-        const selectCompanyPage = new SelectCompanyPage(page);
-        const sidebar = new Sidebar(page);
-        const billsPage = new BillsPage(page);
-        const newBillModal = new NewBillModal(page);
+    test('User can upload a receipt via Scanit and see it in the list', async ({ page, signInPage, selectCompanyPage, sidebar, billsPage, newBillModal }) => {
 
         const receiptPath = path.join(process.cwd(), 'src/data/images/boleta_starbucks.jpg');
 

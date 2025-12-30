@@ -1,8 +1,4 @@
 import { test, expect } from '@src/fixtures/baseTest';
-import { SignInPage } from '@src/web/pages/SignInPage';
-import { SelectCompanyPage } from '@src/web/pages/SelectCompanyPage';
-import { BillsPage } from '@src/web/pages/BillsPage';
-import { Sidebar } from '@src/web/components/Sidebar';
 import * as data from '@src/data/users.json';
 
 
@@ -10,12 +6,8 @@ test.describe('Bills management', () => {
 
     const user = data.users.validUser;
 
-    test('Verify Bills Grid Interaction', async ({ page }) => {
+    test('Verify Bills Grid Interaction', async ({ page, signInPage, selectCompanyPage, sidebar, billsPage }) => {
         const targetName = 'Panaderia los Vidales Limitada';
-        const signInPage = new SignInPage(page);
-        const selectCompanyPage = new SelectCompanyPage(page);
-        const sidebar = new Sidebar(page);
-        const billsPage = new BillsPage(page);
 
         await test.step('Login and Select Company', async () => {
             await signInPage.goto();

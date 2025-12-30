@@ -1,15 +1,11 @@
 import { test, expect } from '@src/fixtures/baseTest';
-import { SignInPage } from '@src/web/pages/SignInPage';
-import { SelectCompanyPage } from '@src/web/pages/SelectCompanyPage';
 import * as data from '@src/data/users.json';
 
 test.describe('Shopping Flow Architecture Check', () => {
 
     const user = data.users.validUser;
 
-    test('User Login/logout Test', async ({ page }) => {
-        const signInPage = new SignInPage(page);
-        const selectCompanyPage = new SelectCompanyPage(page);
+    test('User Login/logout Test', async ({ page, signInPage, selectCompanyPage }) => {
 
         await test.step('Navigate to Sign In', async () => {
             await signInPage.goto();

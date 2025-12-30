@@ -75,6 +75,10 @@ export class NewSimpleBill {
         const calendar = this.page.locator('mat-calendar');
         await calendar.waitFor();
 
+        // TODO: Implement robust date selection logic to handle month/year navigation
+        // if the target date is not in the current view.
+
+        // Select the day by text content ensuring exact match for the number
         await calendar.locator(`//button[contains(@class, 'mat-calendar-body-cell')]//span[normalize-space()='${day}']`).click();
     }
 

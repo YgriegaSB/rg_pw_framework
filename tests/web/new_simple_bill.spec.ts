@@ -1,28 +1,14 @@
 import { test, expect } from '@src/fixtures/baseTest';
-import { SignInPage } from '@src/web/pages/SignInPage';
-import { SelectCompanyPage } from '@src/web/pages/SelectCompanyPage';
-import { Sidebar } from '@src/web/components/Sidebar';
-import { BillsPage } from '@src/web/pages/BillsPage';
-import { NewBillModal } from '@src/web/components/NewBillModal';
-import { NewSimpleBill } from '@src/web/pages/NewSimpleBill';
-import { SnackBar } from '@src/web/components/SnackBar';
 import * as data from '@src/data/users.json';
+import * as expensesData from '@src/data/expenses.json';
 import * as path from 'path';
 
 test.describe('New Simple Bill Creation', () => {
 
     const user = data.users.validUser;
+    const expense = expensesData.expenses.simpleBill;
 
-    test('Create a Simple Expense successfully', async ({ page }) => {
-        const signInPage = new SignInPage(page);
-        const selectCompanyPage = new SelectCompanyPage(page);
-        const sidebar = new Sidebar(page);
-        const billsPage = new BillsPage(page);
-        const newBillModal = new NewBillModal(page);
-        const newSimpleBill = new NewSimpleBill(page);
-        const snackBar = new SnackBar(page);
-
-        // Uso de imagen real existente
+    test('Create a Simple Expense successfully', async ({ page, signInPage, selectCompanyPage, sidebar, billsPage, newBillModal, newSimpleBill, snackBar }) => {
         const receiptPath = path.join(process.cwd(), 'src/data/images/boleta_starbucks.jpg');
 
         await test.step('Login and Setup', async () => {
@@ -38,7 +24,7 @@ test.describe('New Simple Bill Creation', () => {
 
             await newBillModal.switchToSimple();
 
-            await newSimpleBill.selectPolicy(0);
+            await newBillModal.selectSimplePolicy(0);
             await newBillModal.clickContinue();
         });
 
@@ -47,17 +33,18 @@ test.describe('New Simple Bill Creation', () => {
 
             await newSimpleBill.inputMerchant.waitFor({ state: 'visible' });
 
-            await newSimpleBill.fillMerchant('Starbucks Test');
-            await newSimpleBill.selectDate('15');
-            await newSimpleBill.fillAmount('5000');
+            await newSimpleBill.fillMerchant(expense.merchant);
+            await newSimpleBill.selectDate(expense.dateDay);
+            await newSimpleBill.fillAmount(expense.amount);
 
             await newSimpleBill.selectCategory(0);
 
-            await newSimpleBill.fillRutProvider('76.123.456-7');
-            await newSimpleBill.radioDocumentType.first().click();
-            await newSimpleBill.fillDocumentNumber('123123456');
+            await newSimpleBill.fillRutProvider(expense.rutProvider);
 
-            await newSimpleBill.fillComment('Gasto de prueba automatizado');
+            await newSimpleBill.radioDocumentType.first().click();
+            await newSimpleBill.fillDocumentNumber(expense.documentNumber);
+
+            await newSimpleBill.fillComment(expense.comment);
 
             await newSimpleBill.uploadFileViaContainer(receiptPath);
         });
@@ -67,10 +54,7 @@ test.describe('New Simple Bill Creation', () => {
 
             const message = await snackBar.getMessage();
             console.log(`Notification received: ${message}`);
-
             await expect(snackBar.container).toBeVisible();
-
-            //TODO: verificar redireccion a vista detalle gasto
         });
     });
 });
