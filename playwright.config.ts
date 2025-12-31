@@ -13,7 +13,7 @@ export default defineConfig({
     /* Retry on CI only */
     retries: process.env.CI ? 2 : 0,
     /* Opt out of parallel tests on CI. */
-    workers: 1,
+    workers: process.env.CI ? '50%' : undefined,
     /* Global Timeout */
     timeout: 60000,
     /* Global Setup and Teardown */
@@ -47,5 +47,10 @@ export default defineConfig({
             testIgnore: /.*tests\/api.*/,
             use: { ...devices['Desktop Chrome'] },
         },
+        {
+            name: 'firefox',
+            testIgnore: /.*tests\/api.*/,
+            use: { ...devices['Desktop Firefox'] },
+        }
     ],
 });

@@ -8,6 +8,8 @@ test.describe('Bills Creation', () => {
         await test.step('Login and Select Company', async () => {
             await signInPage.goto();
             await signInPage.login(user.username, user.password);
+
+            await expect(selectCompanyPage.cards.first()).toBeVisible({ timeout: 10000 });
             await selectCompanyPage.selectCompany(user.company);
         });
 
