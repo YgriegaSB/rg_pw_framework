@@ -9,7 +9,7 @@ test.describe('Bills management', () => {
     const user = data.users.validUser;
 
     test('Verify Bills Grid Interaction', async ({ page, signInPage, selectCompanyPage, sidebar, billsPage, newBillModal, newSimpleBill, snackBar }) => {
-        const targetName = expensesData.expenses.simpleBill.merchant;
+        const targetName = `${expensesData.expenses.simpleBill.merchant} ${Date.now()}`;
 
         await test.step('Login and Select Company', async () => {
             await signInPage.goto();
