@@ -2,15 +2,7 @@ name: Web UI Tests
 
 on:
   push:
-    branches: [ main, master ]
-    paths:
-      - 'tests/web/**'
-      - 'src/**'
-      - 'playwright.config.ts'
-      - 'package.json'
-      - 'package-lock.json'
-  pull_request:
-    branches: [ main, master ]
+    branches: [ develop ]
     paths:
       - 'tests/web/**'
       - 'src/**'
