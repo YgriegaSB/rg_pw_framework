@@ -4,7 +4,6 @@ import path from 'path';
 import { users } from '@src/data/users.json';
 
 test.describe('Report Submission E2E Flows', () => {
-
     const user = users.validUser;
 
     const uniqueId = Date.now().toString();
@@ -27,7 +26,6 @@ test.describe('Report Submission E2E Flows', () => {
         sendReportModal,
         notificationModal,
     }) => {
-
         await test.step('Login and Select Company', async () => {
             await signInPage.goto();
             await signInPage.login(user.username, user.password);
@@ -70,8 +68,6 @@ test.describe('Report Submission E2E Flows', () => {
             await newReportModal.fillTitle(reportTitle);
 
             await newReportModal.clickCreateReport();
-
-
         });
 
         await test.step('Add Expense to Report', async () => {
@@ -81,7 +77,6 @@ test.describe('Report Submission E2E Flows', () => {
             await newReportPage.clickSaveReport();
 
             await expect(reportDetailsPage.currentModuleTitle).toBeVisible();
-
         });
 
         await test.step('Send Report', async () => {
@@ -95,8 +90,6 @@ test.describe('Report Submission E2E Flows', () => {
         });
     });
 
-
-    // Test 2: Negative Path (Empty Report)
     test('Negative Path: Verify Send Report Disabled for Empty Report', async ({
         page,
         signInPage,
@@ -106,7 +99,6 @@ test.describe('Report Submission E2E Flows', () => {
         newReportPage,
         reportDetailsPage,
         sidebar,
-        snackBar
     }) => {
         const emptyReportTitle = `Reporte Vacio ${Date.now()}`;
 
@@ -124,17 +116,15 @@ test.describe('Report Submission E2E Flows', () => {
             await newReportModal.fillTitle(emptyReportTitle);
             await newReportModal.clickCreateReport();
 
-            await expect(newReportPage.currentModuleTitle).toBeVisible();
+            await expect(newReportPage.inputTitle).toBeVisible({ timeout: 10000 });
 
-            await page.waitForTimeout(5000);
             await newReportPage.clickSaveReport();
         });
 
         await test.step('Verify Send Button Disabled', async () => {
-            await expect(reportDetailsPage.currentModuleTitle).toBeVisible({ timeout: 10000 });
+            await expect(reportDetailsPage.currentModuleTitle).toBeVisible();
 
-            await expect(reportDetailsPage.sendReportButton).toBeDisabled({ timeout: 10000 });
+            await expect(reportDetailsPage.sendReportButton).toBeDisabled();
         });
     });
-
 });

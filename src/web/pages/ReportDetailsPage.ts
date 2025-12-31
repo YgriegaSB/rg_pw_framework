@@ -43,7 +43,9 @@ export class ReportDetailsPage {
 
     // --- Grid Interaction ---
     getRowByName(expenseName: string): Locator {
-        return this.page.locator(`xpath=//div[contains(@class, "gridItem") and contains(@class, "unselectableUser")][.//span[contains(@class, "bold") and contains(text(), "${expenseName}")]]`);
+        return this.page.locator(
+            `xpath=//div[contains(@class, "gridItem") and contains(@class, "unselectableUser")][.//span[contains(@class, "bold") and contains(text(), "${expenseName}")]]`
+        );
     }
 
     async getExpenseData(row: Locator) {
@@ -71,7 +73,7 @@ export class ReportDetailsPage {
             date: await getTextSafe(dateLocator),
             status: await getTextSafe(statusLocator),
             category: await getTextSafe(categoryLocatorFixed),
-            total: await getTextSafe(totalLocator)
+            total: await getTextSafe(totalLocator),
         };
     }
 

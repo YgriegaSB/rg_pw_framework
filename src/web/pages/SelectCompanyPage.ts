@@ -19,5 +19,4 @@ export class SelectCompanyPage {
     async clickLogout() {
         await this.logoutButton.click();
     }
-
 }

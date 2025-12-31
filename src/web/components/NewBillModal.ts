@@ -28,7 +28,7 @@ export class NewBillModal {
         this.buttonCancel = page.locator("//button/span[text()='Cancelar']");
         this.buttonContinue = page.locator("//button/span[text()='Continuar']");
         this.inputFile = page.locator("//app-drag-and-drop//input[@type='file']");
-        this.uploadDropZone = page.locator("app-drag-and-drop");
+        this.uploadDropZone = page.locator('app-drag-and-drop');
     }
 
     async uploadFile(filePath: string) {

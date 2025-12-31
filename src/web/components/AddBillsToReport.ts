@@ -8,7 +8,6 @@ export class AddBillsToReport {
     readonly buttonCancel: Locator;
     readonly buttonAddBills: Locator;
 
-    // Checkbox is generic, we will use it with nth(index) or relative to a row
     readonly checkbox: Locator;
 
     constructor(page: Page) {
@@ -39,33 +38,14 @@ export class AddBillsToReport {
         await this.buttonAddBills.click();
     }
 
-    /**
-     * Selects a bill checkbox by its index in the list.
-     * Note: Indices are 0-based.
-     */
     async selectBillCheckByIndex(index: number) {
         await this.checkbox.nth(index).click();
     }
 
-    /**
-     * Selects a bill checkbox by finding the row with the exact expense name.
-     * Strategy:
-     * 1. Find the span with the expense name.
-     * 2. Traverse up to the common container or find the checkbox relative to it.
-     * Based on the user request:
-     * //div[@class='textCheck text-black']/span[@class='bold ng-star-inserted'] is the name.
-     * The structure usually is a row containing both the name and the checkbox/radio.
-     * In the image, the radio/checkbox is on the left.
-     * Assuming the checkbox is within the same `gridItem` or row container.
-     */
     async selectBillCheckByName(expenseName: string) {
-        // We look for a row that contains the specific name
-        // And then find the checkbox within that row.
-        // Since we don't have the full row xpath from the user, we'll try to find the checkbox that shares a common ancestor 
-        // or uses the row logic if we can infer it. 
-        // Let's assume the standard gridItem structure. 
-        // Locator for the row:
-        const row = this.page.locator(`xpath=//div[contains(@class, 'gridItem')][.//span[contains(@class, 'bold') and normalize-space()='${expenseName}']]`);
+        const row = this.page.locator(
+            `xpath=//div[contains(@class, 'gridItem')][.//span[contains(@class, 'bold') and normalize-space()='${expenseName}']]`
+        );
         const checkbox = row.locator("input[type='checkbox']");
         await checkbox.click();
     }

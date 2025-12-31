@@ -8,5 +8,4 @@ export class NotificationModal {
         this.page = page;
         this.container = page.locator('.flex.ai-c.fd-c.pd-40-tb.pd-32-sides.ng-star-inserted');
     }
-
 }

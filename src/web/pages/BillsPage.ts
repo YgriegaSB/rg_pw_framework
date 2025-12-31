@@ -34,7 +34,6 @@ export class BillsPage {
         this.buttonStopScanit = page.locator("//button[normalize-space()='Detener Scanit']");
     }
 
-
     async getTitleText(): Promise<string> {
         return await this.title.innerText();
     }
@@ -72,7 +71,11 @@ export class BillsPage {
 
     // -- Get Row by bill Name --
     getRowByName(name: string): Locator {
-        return this.page.locator(`xpath=//div[contains(@class, "gridItem")][.//div[contains(@class, "textCheck")]//span[contains(@class, "bold") and normalize-space()="${name}"]]`).first();
+        return this.page
+            .locator(
+                `xpath=//div[contains(@class, "gridItem")][.//div[contains(@class, "textCheck")]//span[contains(@class, "bold") and normalize-space()="${name}"]]`
+            )
+            .first();
     }
 
     // --- Row Data Extraction ---
@@ -88,7 +91,9 @@ export class BillsPage {
         };
 
         const nameLocator = row.locator('xpath=.//div[contains(@class, "textCheck")]//span[contains(@class, "bold")]');
-        const dateLocator = row.locator('xpath=.//div[contains(@class, "textCheck")]//div[contains(@class, "asbestos")]');
+        const dateLocator = row.locator(
+            'xpath=.//div[contains(@class, "textCheck")]//div[contains(@class, "asbestos")]'
+        );
         const statusLocator = row.locator('xpath=.//div[contains(@class, "chipGroup")]//span');
 
         const policyLocator = row.locator('xpath=(.//a[contains(@class, "sp3")])[2]//span');
@@ -97,7 +102,7 @@ export class BillsPage {
         const totalLocator = row.locator('xpath=.//a[contains(@class, "right")]//span');
 
         const duplicateIcon = row.locator('xpath=.//icons-component[@type="duplyList"]');
-        const isDuplicate = await duplicateIcon.count() > 0;
+        const isDuplicate = (await duplicateIcon.count()) > 0;
 
         return {
             name: await getTextSafe(nameLocator),
@@ -106,7 +111,7 @@ export class BillsPage {
             policy: await getTextSafe(policyLocator),
             category: await getTextSafe(categoryLocator),
             total: await getTextSafe(totalLocator),
-            isDuplicate
+            isDuplicate,
         };
     }
 
@@ -122,7 +127,9 @@ export class BillsPage {
     }
 
     async selectMenuOption(optionText: string) {
-        await this.page.locator(`xpath=.//div[contains(@class, "dropDown")]//div[contains(text(), "${optionText}")]`).click();
+        await this.page
+            .locator(`xpath=.//div[contains(@class, "dropDown")]//div[contains(text(), "${optionText}")]`)
+            .click();
     }
 
     async openRowMenuByName(name: string) {

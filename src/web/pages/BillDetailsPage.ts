@@ -20,8 +20,12 @@ export class BillDetailsPage {
 
         this.principalModule = page.locator("//div[@class='top-menu']/descendant::div[text()='Gastos']");
         this.currentModuleTitle = page.locator("//div[@class='nav current']");
-        this.date = page.locator("//app-editable-info//div[contains(@class, 'editableValue') and not(contains(@class, 'bigger'))]//div[contains(@class, 'flex')]");
-        this.amount = page.locator("//app-editable-info//div[contains(@class, 'editableValue') and contains(@class, 'bigger')]//div[contains(@class, 'flex')]");
+        this.date = page.locator(
+            "//app-editable-info//div[contains(@class, 'editableValue') and not(contains(@class, 'bigger'))]//div[contains(@class, 'flex')]"
+        );
+        this.amount = page.locator(
+            "//app-editable-info//div[contains(@class, 'editableValue') and contains(@class, 'bigger')]//div[contains(@class, 'flex')]"
+        );
         this.category = page.locator("(.//*[normalize-space()='Categoría']/following::div)[1]");
         this.rutProvider = page.locator("(.//*[normalize-space()='RUT Proveedor']/following::div)[1]");
         this.documentType = page.locator("(.//*[normalize-space()='Tipo de Documento']/following::div)[1]");

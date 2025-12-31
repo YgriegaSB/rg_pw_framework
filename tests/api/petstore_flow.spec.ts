@@ -17,7 +17,6 @@ test.describe('Petstore API Challenge', () => {
 
     test('Petstore Challenge: Full User Journey', async () => {
         let sharedPet: any;
-        let orderId: number;
 
         await test.step('1. Login User', async () => {
             const response = await userService.login('testuser', 'testpass');
@@ -67,7 +66,7 @@ test.describe('Petstore API Challenge', () => {
                 quantity: 1,
                 shipDate: new Date().toISOString(),
                 status: 'placed',
-                complete: true
+                complete: true,
             };
 
             const response = await storeService.placeOrder(orderPayload);
@@ -78,9 +77,7 @@ test.describe('Petstore API Challenge', () => {
             expect(order.quantity).toBe(orderPayload.quantity);
             expect(order.status).toBe(orderPayload.status);
 
-            orderId = order.id;
             console.log(`Order created: ${order.id} for Pet: ${order.petId}`);
         });
     });
-
 });

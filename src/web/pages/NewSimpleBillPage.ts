@@ -50,7 +50,7 @@ export class NewSimpleBillPage {
 
         this.inputRutProvider = page.locator("//input[@id='RUT Proveedor']");
 
-        this.radioDocumentType = page.locator("//input/parent::label");
+        this.radioDocumentType = page.locator('//input/parent::label');
         this.inputDocumentNumber = page.locator("//input[@id='Número de Documento']");
         this.inputComment = page.locator('#comment');
 
@@ -59,7 +59,9 @@ export class NewSimpleBillPage {
 
         this.fileContainer = page.locator('#multiExpense');
         this.inputFile = page.locator("//div[@id='multiExpense']/input");
-        this.iconInputFileUpload = page.locator("//div[contains(@class, 'mat-mdc-tooltip-trigger')]//input[@type='file']");
+        this.iconInputFileUpload = page.locator(
+            "//div[contains(@class, 'mat-mdc-tooltip-trigger')]//input[@type='file']"
+        );
     }
 
     // --- Actions ---
@@ -85,7 +87,9 @@ export class NewSimpleBillPage {
         // if the target date is not in the current view.
 
         // Select the day by text content ensuring exact match for the number
-        await calendar.locator(`//button[contains(@class, 'mat-calendar-body-cell')]//span[normalize-space()='${day}']`).click();
+        await calendar
+            .locator(`//button[contains(@class, 'mat-calendar-body-cell')]//span[normalize-space()='${day}']`)
+            .click();
     }
 
     async fillAmount(amount: string) {

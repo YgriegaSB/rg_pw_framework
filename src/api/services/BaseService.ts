@@ -18,8 +18,8 @@ export class BaseService {
             data,
             headers: {
                 'Content-Type': 'application/json',
-                'accept': 'application/json'
-            }
+                accept: 'application/json',
+            },
         });
     }
 
@@ -28,16 +28,16 @@ export class BaseService {
             data,
             headers: {
                 'Content-Type': 'application/json',
-                'accept': 'application/json'
-            }
+                accept: 'application/json',
+            },
         });
     }
 
     protected async delete(endpoint: string): Promise<APIResponse> {
         return this.request.delete(`${this.baseURL}${endpoint}`, {
             headers: {
-                'accept': 'application/json'
-            }
+                accept: 'application/json',
+            },
         });
     }
 }

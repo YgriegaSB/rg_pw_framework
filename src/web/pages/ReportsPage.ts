@@ -45,7 +45,9 @@ export class ReportsPage {
     // --- Table Interaction ---
 
     getRowByName(name: string): Locator {
-        return this.page.locator(`xpath=//div[contains(@class, 'gridItem') and .//div[contains(@class, 'date-text')]][.//span[contains(., "${name}")]]`);
+        return this.page.locator(
+            `xpath=//div[contains(@class, 'gridItem') and .//div[contains(@class, 'date-text')]][.//span[contains(., "${name}")]]`
+        );
     }
 
     // --- Row Data Extraction ---
@@ -67,8 +69,12 @@ export class ReportsPage {
         const policyLocator = row.locator('xpath=(.//a[contains(@class, "sp3")])[1]//span');
         const expensesCountLocator = row.locator('xpath=(.//a[contains(@class, "sp3")])[2]');
 
-        const amountApprovedLocator = row.locator('xpath=.//a[contains(@class, "right")]//span[contains(@class, "text-blue")]');
-        const amountTotalLocator = row.locator('xpath=.//a[contains(@class, "right")]//div[contains(@class, "text-black")]');
+        const amountApprovedLocator = row.locator(
+            'xpath=.//a[contains(@class, "right")]//span[contains(@class, "text-blue")]'
+        );
+        const amountTotalLocator = row.locator(
+            'xpath=.//a[contains(@class, "right")]//div[contains(@class, "text-black")]'
+        );
 
         return {
             name: await getTextSafe(nameLocator),
@@ -77,7 +83,7 @@ export class ReportsPage {
             policy: await getTextSafe(policyLocator),
             expensesCount: await getTextSafe(expensesCountLocator),
             amountApproved: await getTextSafe(amountApprovedLocator),
-            amountTotal: await getTextSafe(amountTotalLocator)
+            amountTotal: await getTextSafe(amountTotalLocator),
         };
     }
 
@@ -93,7 +99,9 @@ export class ReportsPage {
     }
 
     async selectMenuOption(optionText: string) {
-        await this.page.locator(`xpath=//div[contains(@class, "dropDown")]//div[contains(text(), "${optionText}")]`).click();
+        await this.page
+            .locator(`xpath=//div[contains(@class, "dropDown")]//div[contains(text(), "${optionText}")]`)
+            .click();
     }
 
     async exportExcelByName(name: string) {

@@ -28,5 +28,4 @@ export class SignInPage {
         await expect(this.loginButton).toBeEnabled();
         await this.loginButton.click();
     }
-
 }

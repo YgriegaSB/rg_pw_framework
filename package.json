@@ -7,7 +7,10 @@
     "test:api": "npx playwright test --project=api",
     "test:ui": "npx playwright test --project=chromium --project=firefox",
     "test:all": "npx playwright test",
-    "shopping:ui": "npx playwright test tests/web/shopping.spec.ts --project=chromium --ui"
+    "shopping:ui": "npx playwright test tests/web/shopping.spec.ts --project=chromium --ui",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
+    "lint:fix": "ESLINT_USE_FLAT_CONFIG=false eslint . --fix",
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -16,7 +19,14 @@
   "devDependencies": {
     "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.3",
-    "dotenv": "^17.2.3"
+    "@typescript-eslint/eslint-plugin": "^8.51.0",
+    "@typescript-eslint/parser": "^8.51.0",
+    "dotenv": "^17.2.3",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-playwright": "^2.4.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.7.4"
   },
   "dependencies": {
     "winston": "^3.19.0"

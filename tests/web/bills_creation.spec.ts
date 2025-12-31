@@ -2,11 +2,9 @@ import { test, expect } from '@src/fixtures/baseTest';
 import * as data from '@src/data/users.json';
 
 test.describe('Bills Creation', () => {
-
     const user = data.users.validUser;
 
-    test('Verify New Bill Modal', async ({ page, signInPage, selectCompanyPage, sidebar, billsPage, newBillModal }) => {
-
+    test('Verify New Bill Modal', async ({ signInPage, selectCompanyPage, sidebar, billsPage, newBillModal }) => {
         await test.step('Login and Select Company', async () => {
             await signInPage.goto();
             await signInPage.login(user.username, user.password);
@@ -32,7 +30,7 @@ test.describe('Bills Creation', () => {
             await expect(newBillModal.buttonCancel).toBeVisible();
 
             await newBillModal.clickCancel();
-            await expect(newBillModal.title).not.toBeVisible();
+            await expect(newBillModal.title).toBeHidden();
         });
     });
 });

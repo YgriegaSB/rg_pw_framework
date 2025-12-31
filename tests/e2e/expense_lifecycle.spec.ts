@@ -3,11 +3,15 @@ import * as data from '@src/data/users.json';
 import * as path from 'path';
 
 test.describe('E2E: Expense Lifecycle', () => {
-
     const user = data.users.validUser;
 
-    test('User can upload a receipt via Scanit and see it in the list', async ({ page, signInPage, selectCompanyPage, sidebar, billsPage, newBillModal }) => {
-
+    test('User can upload a receipt via Scanit and see it in the list', async ({
+        signInPage,
+        selectCompanyPage,
+        sidebar,
+        billsPage,
+        newBillModal,
+    }) => {
         const receiptPath = path.join(process.cwd(), 'src/data/images/boleta_starbucks.jpg');
 
         await test.step('1. Login to the application', async () => {
@@ -18,7 +22,7 @@ test.describe('E2E: Expense Lifecycle', () => {
 
         await test.step('2. Select Company', async () => {
             await selectCompanyPage.selectCompany(user.company);
-            await expect(selectCompanyPage.cards.first()).not.toBeVisible();
+            await expect(selectCompanyPage.cards.first()).toBeHidden();
         });
 
         await test.step('3. Navigate to Bills', async () => {
@@ -42,12 +46,11 @@ test.describe('E2E: Expense Lifecycle', () => {
 
             await newBillModal.clickContinue();
 
-            await expect(newBillModal.title).not.toBeVisible();
+            await expect(newBillModal.title).toBeHidden();
         });
 
         await test.step('6. Verify Processing/Presence in Grid', async () => {
             await expect(billsPage.buttonStopScanit.first()).toBeVisible({ timeout: 15000 });
         });
-
     });
 });
