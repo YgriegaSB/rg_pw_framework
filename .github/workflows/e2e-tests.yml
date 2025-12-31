@@ -9,14 +9,6 @@ on:
       - 'playwright.config.ts'
       - 'package.json'
       - 'package-lock.json'
-  pull_request:
-    branches: [ main, master ]
-    paths:
-      - 'tests/e2e/**'
-      - 'src/**'
-      - 'playwright.config.ts'
-      - 'package.json'
-      - 'package-lock.json'
   workflow_dispatch:
 
 jobs:
