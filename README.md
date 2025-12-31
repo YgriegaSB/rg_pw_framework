@@ -53,6 +53,20 @@ tests/
     # DB_USER=admin
     # DB_PASSWORD=secret
     ```
+4.  **Usuarios de Prueba**:
+    Las credenciales de los usuarios utilizadas en las pruebas se gestionan en el archivo `src/data/users.json`.
+    **Para configurar un nuevo usuario o actualizar credenciales**, edita este archivo manteniendo la estructura JSON existente:
+    ```json
+    {
+        "users": {
+            "validUser": {
+                "username": "usuario@ejemplo.com",
+                "password": "tu_password",
+                "company": "Nombre de la Empresa"
+            }
+        }
+    }
+    ```
 
 ## ⚡ Ejecución de Pruebas
 
