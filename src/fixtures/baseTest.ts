@@ -9,6 +9,8 @@ import { BillDetailsPage } from '@src/web/pages/BillDetailsPage';
 import { ReportsPage } from '@src/web/pages/ReportsPage';
 import { NewReportModal } from '@src/web/components/NewReportModal';
 import { NewReportPage } from '@src/web/pages/NewReportPage';
+import { ReportDetailsPage } from '@src/web/pages/ReportDetailsPage';
+import { AddBillsToReport } from '@src/web/components/AddBillsToReport';
 import { SnackBar } from '@src/web/components/SnackBar';
 
 type Pages = {
@@ -22,6 +24,8 @@ type Pages = {
     reportsPage: ReportsPage;
     newReportModal: NewReportModal;
     newReportPage: NewReportPage;
+    reportDetailsPage: ReportDetailsPage;
+    addBillsToReport: AddBillsToReport;
     snackBar: SnackBar;
 };
 
@@ -55,6 +59,12 @@ export const test = baseTest.extend<Pages>({
     },
     newReportPage: async ({ page }, use) => {
         await use(new NewReportPage(page));
+    },
+    reportDetailsPage: async ({ page }, use) => {
+        await use(new ReportDetailsPage(page));
+    },
+    addBillsToReport: async ({ page }, use) => {
+        await use(new AddBillsToReport(page));
     },
     snackBar: async ({ page }, use) => {
         await use(new SnackBar(page));
