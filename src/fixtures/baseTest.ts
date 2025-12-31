@@ -11,6 +11,8 @@ import { NewReportModal } from '@src/web/components/NewReportModal';
 import { NewReportPage } from '@src/web/pages/NewReportPage';
 import { ReportDetailsPage } from '@src/web/pages/ReportDetailsPage';
 import { AddBillsToReport } from '@src/web/components/AddBillsToReport';
+import { SendReportModal } from '@src/web/components/SendReportModal';
+import { NotificationModal } from '@src/web/components/NotificationModal';
 import { SnackBar } from '@src/web/components/SnackBar';
 
 type Pages = {
@@ -26,6 +28,8 @@ type Pages = {
     newReportPage: NewReportPage;
     reportDetailsPage: ReportDetailsPage;
     addBillsToReport: AddBillsToReport;
+    sendReportModal: SendReportModal;
+    notificationModal: NotificationModal;
     snackBar: SnackBar;
 };
 
@@ -65,6 +69,12 @@ export const test = baseTest.extend<Pages>({
     },
     addBillsToReport: async ({ page }, use) => {
         await use(new AddBillsToReport(page));
+    },
+    sendReportModal: async ({ page }, use) => {
+        await use(new SendReportModal(page));
+    },
+    notificationModal: async ({ page }, use) => {
+        await use(new NotificationModal(page));
     },
     snackBar: async ({ page }, use) => {
         await use(new SnackBar(page));

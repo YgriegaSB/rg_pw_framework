@@ -9,16 +9,18 @@ export class ReportDetailsPage {
     readonly editButton: Locator;
     readonly sendReportButton: Locator;
     readonly buttonAddBills: Locator;
+    readonly detailsBills: Locator;
 
     constructor(page: Page) {
         this.page = page;
 
         this.mainModuleTitle = page.locator("//div[@class='leftSection']/child::a[text()='Informes']");
-        this.currentModuleTitle = page.locator("//div[@class='leftSection']/child::a[text()='Detalle del Informe']");
+        this.currentModuleTitle = page.locator("//a[text()='Detalle del Informe']");
 
         this.editButton = page.locator("//button/span[text()='Editar']");
         this.sendReportButton = page.locator("//button/span[text()='Enviar informe']");
         this.buttonAddBills = page.locator("//button/span[text()='+ Agregar más gastos']");
+        this.detailsBills = page.locator("//span[text()='Gastos']");
     }
 
     // --- Actions ---
@@ -41,7 +43,7 @@ export class ReportDetailsPage {
 
     // --- Grid Interaction ---
     getRowByName(expenseName: string): Locator {
-        return this.page.locator(`xpath=//div[contains(@class, 'gridItem') and contains(@class, 'unselectableUser')][.//span[contains(@class, 'bold') and contains(text(), '${expenseName}')]]`);
+        return this.page.locator(`xpath=//div[contains(@class, "gridItem") and contains(@class, "unselectableUser")][.//span[contains(@class, "bold") and contains(text(), "${expenseName}")]]`);
     }
 
     async getExpenseData(row: Locator) {

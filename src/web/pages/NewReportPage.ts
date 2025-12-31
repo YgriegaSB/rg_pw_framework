@@ -7,6 +7,7 @@ export class NewReportPage {
     readonly currentModuleTitle: Locator;
     readonly inputTitle: Locator;
     readonly inputFile: Locator;
+    readonly checkboxBills: Locator;
     readonly comments: Locator;
     readonly buttonSaveReport: Locator;
 
@@ -18,6 +19,7 @@ export class NewReportPage {
 
         this.inputTitle = page.locator('#title');
         this.inputFile = page.locator("//input[@type='file']");
+        this.checkboxBills = page.locator("//input[@type='checkbox']/parent::div");
         this.comments = page.locator("//div[@id='commentField']/descendant::textarea");
         this.buttonSaveReport = page.locator("//button/span[text()='Guardar cambios']");
     }
@@ -36,5 +38,17 @@ export class NewReportPage {
 
     async clickSaveReport() {
         await this.buttonSaveReport.click();
+    }
+
+    async selectRandomBill() {
+        await this.checkboxBills.first().waitFor({ state: 'attached', timeout: 5000 }).catch(() => { });
+
+        const count = await this.checkboxBills.count();
+        if (count > 0) {
+            const randomIndex = Math.floor(Math.random() * count);
+            await this.checkboxBills.nth(randomIndex).click();
+        } else {
+            console.log('No bills found to select.');
+        }
     }
 }
