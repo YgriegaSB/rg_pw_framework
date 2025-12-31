@@ -72,7 +72,7 @@ export class BillsPage {
 
     // -- Get Row by bill Name --
     getRowByName(name: string): Locator {
-        return this.page.locator(`xpath=//div[contains(@class, 'gridItem')][.//span[contains(., "${name}")]]`);
+        return this.page.locator(`xpath=//div[contains(@class, "gridItem")][.//div[contains(@class, "textCheck")]//span[contains(@class, "bold") and normalize-space()="${name}"]]`);
     }
 
     // --- Row Data Extraction ---

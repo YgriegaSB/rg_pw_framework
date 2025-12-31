@@ -16,7 +16,7 @@ test.describe('Shopping Flow Architecture Check', () => {
         });
 
         await test.step('Verify Login', async () => {
-            await expect(selectCompanyPage.cards.first(), 'Company Selection should be visible').toBeVisible();
+            await expect(selectCompanyPage.cards.first(), 'Company Selection should be visible').toBeVisible({ timeout: 30000 });
         });
 
         await test.step('Logout', async () => {

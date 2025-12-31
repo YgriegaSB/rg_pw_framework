@@ -15,10 +15,10 @@ test.describe('New Simple Bill Creation', () => {
             await signInPage.goto();
             await signInPage.login(user.username, user.password);
             await selectCompanyPage.selectCompany(user.company);
-            await sidebar.clickBills();
         });
 
         await test.step('Open New Simple Bill Form', async () => {
+            await sidebar.clickBills();
             await billsPage.clickNewBill();
             await expect(newBillModal.title).toBeVisible();
 
