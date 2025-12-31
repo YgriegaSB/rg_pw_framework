@@ -1,0 +1,48 @@
+name: Web UI Tests
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'tests/web/**'
+      - 'src/**'
+      - 'playwright.config.ts'
+      - 'package.json'
+      - 'package-lock.json'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'tests/web/**'
+      - 'src/**'
+      - 'playwright.config.ts'
+      - 'package.json'
+      - 'package-lock.json'
+  workflow_dispatch:
+
+jobs:
+  test-web:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.57.0-jammy 
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+      env:
+        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1 
+    - name: Run Web Tests
+      run: npx playwright test tests/web --workers=1
+      env:
+        BASE_URL: ${{ secrets.BASE_URL }}
+        HOME: /root
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report-web
+        path: playwright-report/
+        retention-days: 15

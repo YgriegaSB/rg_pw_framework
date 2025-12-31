@@ -15,7 +15,7 @@ test.describe('Petstore API Challenge', () => {
         storeService = new StoreService(request, baseURL);
     });
 
-    test('Petstore Challenge: Full User Journey', async ({ logger }) => {
+    test('Petstore Challenge: Full User Journey', async () => {
         let sharedPet: any;
         let orderId: number;
 
@@ -27,7 +27,7 @@ test.describe('Petstore API Challenge', () => {
             const body = await response.json();
             expect(body.code, 'Response code should be 200').toBe(200);
             expect(body.message, 'Message should contains session/token').toMatch(/.+/);
-            logger.info(`Login successful. Token/Session: ${body.message}`);
+            console.log(`Login successful. Token/Session: ${body.message}`);
         });
 
         await test.step('2. List Available Pets', async () => {
@@ -42,7 +42,7 @@ test.describe('Petstore API Challenge', () => {
             expect(firstPet.status).toBe('available');
 
             sharedPet = pets[Math.floor(Math.random() * pets.length)];
-            logger.info(`Selected random pet: ${sharedPet.id} (${sharedPet.name})`);
+            console.log(`Selected random pet: ${sharedPet.id} (${sharedPet.name})`);
         });
 
         await test.step('3. Get Pet Details', async () => {
@@ -55,7 +55,7 @@ test.describe('Petstore API Challenge', () => {
             expect(details.id).toBe(sharedPet.id);
             expect(details.name).toBe(sharedPet.name);
 
-            logger.info(`Verified details for pet ${details.id}`);
+            console.log(`Verified details for pet ${details.id}`);
         });
 
         await test.step('4. Create Order', async () => {
@@ -79,7 +79,7 @@ test.describe('Petstore API Challenge', () => {
             expect(order.status).toBe(orderPayload.status);
 
             orderId = order.id;
-            logger.info(`Order created: ${order.id} for Pet: ${order.petId}`);
+            console.log(`Order created: ${order.id} for Pet: ${order.petId}`);
         });
     });
 

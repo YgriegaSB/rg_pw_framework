@@ -31,6 +31,7 @@ src/
     └── pages/       # Page Objects (InventoryPage)
 tests/
 ├── api/             # Suites de Pruebas de API
+├── e2e/             # Flujos End-to-End
 └── web/             # Suites de Pruebas de UI
 ```
 
@@ -67,6 +68,12 @@ Ejecuta la suite de automatización de API.
 npm run test:api
 ```
 
+### Pruebas E2E (Report Submission)
+Ejecuta los flujos completos de End-to-End.
+```bash
+npx playwright test tests/e2e
+```
+
 ### Modo Depuración (UI)
 Lanza la interfaz interactiva de Playwright para depurar.
 ```bash
@@ -74,6 +81,10 @@ npm run shopping:ui
 ```
 
 ## 🔍 CI/CD
-El flujo de trabajo de GitHub Actions se encuentra en `.github/workflows/playwright.yml`.
+Los flujos de trabajo de GitHub Actions se encuentran en `.github/workflows/`:
+
+-   **`api-tests.yml`**: Pruebas de API.
+-   **`e2e-tests.yml`**: Pruebas End-to-End (sequenciales).
+-   **`web-tests.yml`**: Pruebas de UI Web.
 
 -   **Secretos Requeridos**: `API_BASE_URL`, `BASE_URL`.

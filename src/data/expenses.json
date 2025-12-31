@@ -1,0 +1,12 @@
+{
+    "expenses": {
+        "simpleBill": {
+            "merchant": "Starbucks Test",
+            "amount": "5000",
+            "rutProvider": "76.123.456-7",
+            "documentNumber": "123456",
+            "comment": "Gasto de prueba automatizado",
+            "dateDay": "15"
+        }
+    }
+}

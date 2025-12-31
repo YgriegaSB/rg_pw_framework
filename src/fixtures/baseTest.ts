@@ -1,40 +1,83 @@
 import { test as baseTest } from '@playwright/test';
-import { createTestLogger } from '@utils/logger';
-import winston from 'winston';
-import path from 'path';
-import fs from 'fs';
+import { SignInPage } from '@src/web/pages/SignInPage';
+import { SelectCompanyPage } from '@src/web/pages/SelectCompanyPage';
+import { Sidebar } from '@src/web/components/Sidebar';
+import { BillsPage } from '@src/web/pages/BillsPage';
+import { NewBillModal } from '@src/web/components/NewBillModal';
+import { NewSimpleBillPage } from '@src/web/pages/NewSimpleBillPage';
+import { BillDetailsPage } from '@src/web/pages/BillDetailsPage';
+import { ReportsPage } from '@src/web/pages/ReportsPage';
+import { NewReportModal } from '@src/web/components/NewReportModal';
+import { NewReportPage } from '@src/web/pages/NewReportPage';
+import { ReportDetailsPage } from '@src/web/pages/ReportDetailsPage';
+import { AddBillsToReport } from '@src/web/components/AddBillsToReport';
+import { SendReportModal } from '@src/web/components/SendReportModal';
+import { NotificationModal } from '@src/web/components/NotificationModal';
+import { SnackBar } from '@src/web/components/SnackBar';
 
-import { InventoryPage } from '@pages/InventoryPage';
-
-type TestFixtures = {
-    logger: winston.Logger;
-    inventoryPage: InventoryPage;
+type Pages = {
+    signInPage: SignInPage;
+    selectCompanyPage: SelectCompanyPage;
+    sidebar: Sidebar;
+    billsPage: BillsPage;
+    newBillModal: NewBillModal;
+    newSimpleBill: NewSimpleBillPage;
+    billDetailsPage: BillDetailsPage;
+    reportsPage: ReportsPage;
+    newReportModal: NewReportModal;
+    newReportPage: NewReportPage;
+    reportDetailsPage: ReportDetailsPage;
+    addBillsToReport: AddBillsToReport;
+    sendReportModal: SendReportModal;
+    notificationModal: NotificationModal;
+    snackBar: SnackBar;
 };
 
-export const test = baseTest.extend<TestFixtures>({
-    logger: async ({ }, use, testInfo) => {
-        const logger = createTestLogger(testInfo.title, testInfo.project.name);
-
-        logger.info(`INICIO DEL TEST: ${testInfo.title}`);
-
-        await use(logger);
-
-        logger.info(`FIN DEL TEST: ${testInfo.title} - STATUS: ${testInfo.status}`);
-
-        await new Promise(resolve => setTimeout(resolve, 100));
-
-        const sanitizedName = testInfo.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        const logPath = path.join(process.cwd(), 'logs', `${sanitizedName}.log`);
-
-        if (fs.existsSync(logPath)) {
-            await testInfo.attach('Execution Logs', {
-                path: logPath,
-                contentType: 'application/json'
-            });
-        }
+export const test = baseTest.extend<Pages>({
+    signInPage: async ({ page }, use) => {
+        await use(new SignInPage(page));
     },
-    inventoryPage: async ({ page }, use) => {
-        await use(new InventoryPage(page));
+    selectCompanyPage: async ({ page }, use) => {
+        await use(new SelectCompanyPage(page));
+    },
+    sidebar: async ({ page }, use) => {
+        await use(new Sidebar(page));
+    },
+    billsPage: async ({ page }, use) => {
+        await use(new BillsPage(page));
+    },
+    newBillModal: async ({ page }, use) => {
+        await use(new NewBillModal(page));
+    },
+    newSimpleBill: async ({ page }, use) => {
+        await use(new NewSimpleBillPage(page));
+    },
+    billDetailsPage: async ({ page }, use) => {
+        await use(new BillDetailsPage(page));
+    },
+    reportsPage: async ({ page }, use) => {
+        await use(new ReportsPage(page));
+    },
+    newReportModal: async ({ page }, use) => {
+        await use(new NewReportModal(page));
+    },
+    newReportPage: async ({ page }, use) => {
+        await use(new NewReportPage(page));
+    },
+    reportDetailsPage: async ({ page }, use) => {
+        await use(new ReportDetailsPage(page));
+    },
+    addBillsToReport: async ({ page }, use) => {
+        await use(new AddBillsToReport(page));
+    },
+    sendReportModal: async ({ page }, use) => {
+        await use(new SendReportModal(page));
+    },
+    notificationModal: async ({ page }, use) => {
+        await use(new NotificationModal(page));
+    },
+    snackBar: async ({ page }, use) => {
+        await use(new SnackBar(page));
     },
 });
 
