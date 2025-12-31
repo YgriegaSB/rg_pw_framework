@@ -4,11 +4,18 @@ import * as expensesData from '@src/data/expenses.json';
 import * as path from 'path';
 
 test.describe('New Simple Bill Creation', () => {
-
     const user = data.users.validUser;
     const expense = expensesData.expenses.simpleBill;
 
-    test('Create a Simple Expense successfully', async ({ page, signInPage, selectCompanyPage, sidebar, billsPage, newBillModal, newSimpleBill, snackBar }) => {
+    test('Create a Simple Expense successfully', async ({
+        signInPage,
+        selectCompanyPage,
+        sidebar,
+        billsPage,
+        newBillModal,
+        newSimpleBill,
+        snackBar,
+    }) => {
         const receiptPath = path.join(process.cwd(), 'src/data/images/boleta_starbucks.jpg');
 
         await test.step('Login and Setup', async () => {

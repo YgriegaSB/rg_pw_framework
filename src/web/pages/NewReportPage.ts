@@ -41,7 +41,10 @@ export class NewReportPage {
     }
 
     async selectRandomBill() {
-        await this.checkboxBills.first().waitFor({ state: 'attached', timeout: 5000 }).catch(() => { });
+        await this.checkboxBills
+            .first()
+            .waitFor({ state: 'attached', timeout: 5000 })
+            .catch(() => {});
 
         const count = await this.checkboxBills.count();
         if (count > 0) {

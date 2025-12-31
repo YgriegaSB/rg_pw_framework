@@ -3,12 +3,17 @@ import * as data from '@src/data/users.json';
 import * as expensesData from '@src/data/expenses.json';
 import * as path from 'path';
 
-
 test.describe('Bills management', () => {
-
     const user = data.users.validUser;
 
-    test('Verify Bills Grid Interaction', async ({ page, signInPage, selectCompanyPage, sidebar, billsPage, newBillModal, newSimpleBill, snackBar }) => {
+    test('Verify Bills Grid Interaction', async ({
+        signInPage,
+        selectCompanyPage,
+        sidebar,
+        billsPage,
+        newBillModal,
+        newSimpleBill
+    }) => {
         const targetName = `${expensesData.expenses.simpleBill.merchant} ${Date.now()}`;
 
         await test.step('Login and Select Company', async () => {
@@ -49,7 +54,6 @@ test.describe('Bills management', () => {
         await test.step('Extract data from row', async () => {
             await expect(billsPage.gridColumns).toBeVisible();
             await billsPage.searchBill(targetName);
-            await page.waitForTimeout(1000);
             const billData = await billsPage.getBillDataByName(targetName);
             console.log('Extracted Bill Data:', billData);
 
@@ -61,5 +65,4 @@ test.describe('Bills management', () => {
             await billsPage.openRowMenuByName(targetName);
         });
     });
-
 });

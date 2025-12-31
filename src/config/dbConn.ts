@@ -5,7 +5,7 @@ export class DatabaseConnection {
     private isConnected: boolean = false;
     private logger = createTestLogger('DB_System', 'Global');
 
-    private constructor() { }
+    private constructor() {}
 
     public static getInstance(): DatabaseConnection {
         if (!DatabaseConnection.instance) {
@@ -36,7 +36,7 @@ export class DatabaseConnection {
 
         this.logger.info(`Initiating Database Connection to ${dbHost} as ${dbUser}...`);
 
-        // TODO: Implement actual DB connection 
+        // TODO: Implement actual DB connection
 
         this.isConnected = true;
         this.logger.info('Database Connection Established Successfully');

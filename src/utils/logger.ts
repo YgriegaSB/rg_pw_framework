@@ -32,15 +32,12 @@ export const createTestLogger = (testName: string, projectName: string) => {
         transports: [
             new winston.transports.File({
                 filename: logFilename,
-                format: winston.format.json()
+                format: winston.format.json(),
             }),
 
             new winston.transports.Console({
-                format: winston.format.combine(
-                    winston.format.colorize(),
-                    consoleFormat
-                )
-            })
-        ]
+                format: winston.format.combine(winston.format.colorize(), consoleFormat),
+            }),
+        ],
     });
 };
