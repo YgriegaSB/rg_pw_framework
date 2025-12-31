@@ -44,7 +44,6 @@ export class ReportsPage {
 
     // --- Table Interaction ---
 
-    // Get Row by Report Name
     getRowByName(name: string): Locator {
         return this.page.locator(`xpath=//div[contains(@class, 'gridItem') and .//div[contains(@class, 'date-text')]][.//span[contains(., "${name}")]]`);
     }
@@ -94,7 +93,6 @@ export class ReportsPage {
     }
 
     async selectMenuOption(optionText: string) {
-        // Global locator for the dropdown option
         await this.page.locator(`xpath=//div[contains(@class, "dropDown")]//div[contains(text(), "${optionText}")]`).click();
     }
 
