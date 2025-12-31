@@ -90,7 +90,6 @@ test.describe('Report Submission E2E Flows', () => {
         });
     });
 
-    // Test 2: Negative Path (Empty Report)
     test('Negative Path: Verify Send Report Disabled for Empty Report', async ({
         page,
         signInPage,
@@ -117,15 +116,15 @@ test.describe('Report Submission E2E Flows', () => {
             await newReportModal.fillTitle(emptyReportTitle);
             await newReportModal.clickCreateReport();
 
-            await expect(newReportPage.currentModuleTitle).toBeVisible();
+            await expect(newReportPage.inputTitle).toBeVisible({ timeout: 10000 });
 
             await newReportPage.clickSaveReport();
         });
 
         await test.step('Verify Send Button Disabled', async () => {
-            await expect(reportDetailsPage.currentModuleTitle).toBeVisible({ timeout: 10000 });
+            await expect(reportDetailsPage.currentModuleTitle).toBeVisible();
 
-            await expect(reportDetailsPage.sendReportButton).toBeDisabled({ timeout: 10000 });
+            await expect(reportDetailsPage.sendReportButton).toBeDisabled();
         });
     });
 });
