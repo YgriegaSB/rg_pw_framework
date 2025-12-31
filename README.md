@@ -70,6 +70,13 @@ tests/
 
 ## ⚡ Ejecución de Pruebas
 
+### Archivos de Test
+Ejecuta los tests de un archivo específico.
+```bash
+npx playwright test tests/web/bills_admin.spec.ts
+```
+--project=chromium --headed --ui -> Opcionales
+
 ### Pruebas de UI
 Ejecuta las pruebas usando Chromium y Firefox.
 ```bash

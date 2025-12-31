@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test';
+import { type Locator, type Page, expect } from '@playwright/test';
 
 export class NewSimpleBillPage {
     readonly page: Page;
@@ -70,8 +70,17 @@ export class NewSimpleBillPage {
         await this.principalModule.click();
     }
 
+    async waitForFormLoad() {
+        await this.currentModule.waitFor({ state: 'visible' });
+        await this.inputMerchant.waitFor({ state: 'visible' });
+    }
+
     async getFormTitle(): Promise<string> {
         return await this.formTitle.innerText();
+    }
+
+    async validateModuleText(expectedText: string) {
+        await expect(this.currentModule).toContainText(expectedText);
     }
 
     async fillMerchant(merchant: string) {

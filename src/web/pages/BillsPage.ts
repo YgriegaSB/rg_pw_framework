@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test';
+import { type Locator, type Page, expect } from '@playwright/test';
 
 export class BillsPage {
     readonly page: Page;
@@ -164,5 +164,9 @@ export class BillsPage {
             await this.page.waitForTimeout(300);
             count = await this.buttonStopScanit.count();
         }
+    }
+
+    async validateScanitProcessing() {
+        await expect(this.buttonStopScanit.first()).toBeVisible({ timeout: 5000 });
     }
 }

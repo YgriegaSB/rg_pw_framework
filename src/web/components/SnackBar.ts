@@ -17,4 +17,8 @@ export class SnackBar {
     async waitForSuccess() {
         await this.container.filter({ hasNotText: 'Error' }).first().waitFor({ state: 'visible' });
     }
+
+    async waitForVisible() {
+        await this.container.first().waitFor({ state: 'visible' });
+    }
 }

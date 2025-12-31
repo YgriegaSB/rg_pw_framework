@@ -31,6 +31,10 @@ export class NewBillModal {
         this.uploadDropZone = page.locator('app-drag-and-drop');
     }
 
+    async waitForPresent() {
+        await this.title.waitFor({ state: 'visible' });
+    }
+
     async uploadFile(filePath: string) {
         await this.inputFile.setInputFiles(filePath);
     }

@@ -16,6 +16,10 @@ export class SelectCompanyPage {
         await companyCard.click();
     }
 
+    async waitForPageLoaded() {
+        await this.cards.first().waitFor({ state: 'visible', timeout: 10000 });
+    }
+
     async clickLogout() {
         await this.logoutButton.click();
     }

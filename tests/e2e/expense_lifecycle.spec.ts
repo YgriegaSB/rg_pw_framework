@@ -50,7 +50,7 @@ test.describe('E2E: Expense Lifecycle', () => {
         });
 
         await test.step('6. Verify Processing/Presence in Grid', async () => {
-            await expect(billsPage.buttonStopScanit.first()).toBeVisible({ timeout: 15000 });
+            await billsPage.validateScanitProcessing();
         });
     });
 });

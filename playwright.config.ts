@@ -11,9 +11,9 @@ export default defineConfig({
     /* Fail the build on CI if you accidentally left test.only in the source code. */
     forbidOnly: !!process.env.CI,
     /* Retry on CI only */
-    retries: process.env.CI ? 2 : 0,
+    retries: process.env.CI ? 2 : 2,
     /* Opt out of parallel tests on CI. */
-    workers: process.env.CI ? '50%' : undefined,
+    workers: process.env.CI ? 1 : 4,
     /* Global Timeout */
     timeout: 60000,
     /* Global Setup and Teardown */
@@ -31,6 +31,7 @@ export default defineConfig({
         baseURL: process.env.BASE_URL,
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on-first-retry',
+        locale: 'es-ES',
     },
 
     /* Configure projects for major browsers */
